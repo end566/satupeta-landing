@@ -1,4 +1,5 @@
 import "./globals.css";
+import { SessionProviderWrapper } from "@/components/SessionProviderWrapper";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
@@ -15,14 +16,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="id">
-      <body className="font-sans antialiased">
-        <Preloader />
-        <Navbar />
-        {children}
-        <ScrollToTop />
-        <Footer />
+    <html lang="en">
+      <body>
+        <SessionProviderWrapper>
+          <Preloader />
+          <Navbar />
+          {children}
+          <ScrollToTop />
+          <Footer />
+        </SessionProviderWrapper>
       </body>
     </html>
+
   );
 }
+
