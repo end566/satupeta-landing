@@ -33,6 +33,33 @@ export default function Navbar() {
         if (href.startsWith("#")) {
             const targetId = href.substring(1);
 
+            if (pathname === "/") {
+                const target = document.getElementById(targetId);
+                if (target) {
+                    target.scrollIntoView({ behavior: "smooth" });
+                }
+            } else {
+                router.push("/"); // 🧭 tanpa .then()
+
+                // Tunggu sedikit agar halaman utama sempat dimuat dulu
+                setTimeout(() => {
+                    const target = document.getElementById(targetId);
+                    if (target) {
+                        target.scrollIntoView({ behavior: "smooth" });
+                    }
+                }, 800); // bisa diatur 600–1000ms tergantung kecepatan load
+            }
+        } else {
+            router.push(href);
+        }
+
+        {/* router.push() tidak mengembalikan Promise, jadi kamu tidak bisa pakai .then() di belakangnya.
+            Makanya TypeScript bilang:
+            Property 'then' does not exist on type 'void'.
+
+        if (href.startsWith("#")) {
+            const targetId = href.substring(1);
+
             // Jika masih di halaman utama
             if (pathname === "/") {
                 const target = document.getElementById(targetId);
@@ -53,6 +80,7 @@ export default function Navbar() {
         } else {
             router.push(href);
         }
+        */}
     };
 
     return (
