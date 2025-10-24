@@ -10,16 +10,12 @@ export default async function StoryMapPage() {
     if (!session) redirect("/login");
 
     return (
-        <div className="relative">
-            {/* Header atas: Greeting + Logout */}
-            <div className="absolute top-4 right-4 flex items-center gap-3 z-[1000]">
-                <UserGreeting />
-                <LogoutButton />
+        <main className="min-h-screen flex flex-col items-center justify-start bg-gray-50 pt-[90px]">
+            {/* ↑ Tambahkan padding top supaya konten tidak tertimpa navbar */}
+            <div className="w-full max-w-6xl px-4">
+                <StoryMap />
             </div>
-
-            {/* Konten utama peta */}
-            <StoryMap />
-        </div>
+        </main>
     );
 }
 

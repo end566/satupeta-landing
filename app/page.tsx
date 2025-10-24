@@ -6,6 +6,7 @@ import FadeInWhenVisible from "@/components/FadeInWhenVisible";
 import FadeInSection from "@/components/FadeInSection";
 import MapView from "@/components/MapView";
 import StoryMap from "@/components/StoryMap";
+import MapBintuni from "@/components/MapBintuni";
 
 
 export default function Home() {
@@ -74,7 +75,6 @@ export default function Home() {
                     </div>
                 </FadeInSection>
             </section>
-
 
             {/* ==== SECTION KONTAK ==== */}
             <section id="kontak" className="py-24 bg-gray-50">

@@ -143,7 +143,10 @@ export default function StoryMap() {
             </div>
 */}
             {/* Peta kanan */}
-            <div className="md:w-1/2 w-full h-screen sticky top-0 z-0">
+            {/*<div className="md:w-1/2 w-full h-screen sticky top-0 z-0">*/}
+            <div className="md:w-1/2 w-full h-[calc(100vh-90px)] sticky top-[90px] z-0">
+                {/* ↑ tambahkan top-[90px] supaya mulai di bawah navbar, 
+                  dan kurangi tinggi total peta (100vh - 90px) */}
                 <MapContainer
                     center={activeStory.center}
                     zoom={activeStory.zoom}
@@ -151,6 +154,7 @@ export default function StoryMap() {
                     className="h-full w-full"
                     ref={mapRef}
                 >
+
                     <TileLayer
                         attribution='&copy; OpenStreetMap contributors'
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

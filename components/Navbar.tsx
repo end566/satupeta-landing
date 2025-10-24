@@ -7,12 +7,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 
-
 export default function Navbar() {
     const [open, setOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const pathname = usePathname();
     const router = useRouter();
+    const isPetaQGIS = pathname === "/petaqgis";
+    const isStoryMap = pathname === "/storymap";
+
 
     useEffect(() => {
         const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -24,113 +26,67 @@ export default function Navbar() {
         { label: "Beranda", href: "/#beranda" },
         { label: "Tentang", href: "/#tentang" },
         { label: "Peta", href: "/#peta" },
+        { label: "PetaQGIS", href: "/petaqgis" },
         { label: "StoryMap", href: "/storymap" },
         { label: "Kontak", href: "/#kontak" },
     ];
 
-    // 🪄 Fungsi navigasi dengan scroll halus
     const handleNavigation = async (href: string) => {
         if (href.startsWith("#")) {
             const targetId = href.substring(1);
 
             if (pathname === "/") {
                 const target = document.getElementById(targetId);
-                if (target) {
-                    target.scrollIntoView({ behavior: "smooth" });
-                }
+                if (target) target.scrollIntoView({ behavior: "smooth" });
             } else {
-                router.push("/"); // 🧭 tanpa .then()
-
-                // Tunggu sedikit agar halaman utama sempat dimuat dulu
+                router.push("/");
                 setTimeout(() => {
                     const target = document.getElementById(targetId);
-                    if (target) {
-                        target.scrollIntoView({ behavior: "smooth" });
-                    }
-                }, 800); // bisa diatur 600–1000ms tergantung kecepatan load
+                    if (target) target.scrollIntoView({ behavior: "smooth" });
+                }, 800);
             }
         } else {
             router.push(href);
         }
-
-        {/* router.push() tidak mengembalikan Promise, jadi kamu tidak bisa pakai .then() di belakangnya.
-            Makanya TypeScript bilang:
-            Property 'then' does not exist on type 'void'.
-
-        if (href.startsWith("#")) {
-            const targetId = href.substring(1);
-
-            // Jika masih di halaman utama
-            if (pathname === "/") {
-                const target = document.getElementById(targetId);
-                if (target) {
-                    target.scrollIntoView({ behavior: "smooth" });
-                }
-            } else {
-                // Jika dari halaman lain (misalnya /storymap)
-                router.push("/").then(() => {
-                    setTimeout(() => {
-                        const target = document.getElementById(targetId);
-                        if (target) {
-                            target.scrollIntoView({ behavior: "smooth" });
-                        }
-                    }, 600); // beri waktu page load dulu
-                });
-            }
-        } else {
-            router.push(href);
-        }
-        */}
     };
 
     return (
         <nav
-            className={`fixed shadow-[0_0_15px_rgba(37,99,235,0.15)] top-0 left-0 w-full z-50 transition-all duration-500  ${scrolled
-                ? "bg-white/70 backdrop-blur-md shadow-sm"
-                : "bg-white/30 backdrop-blur-xl"
+            className={`fixed top-0 w-full z-50 transition-all duration-300 ${isPetaQGIS || isStoryMap
+                ? "bg-white text-black shadow-md"
+                : scrolled
+                    ? "bg-white text-black shadow-md"
+                    : "bg-transparent text-white"
                 }`}
         >
             <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
-
                 {/* Logo */}
                 <a href="/#beranda" className="flex items-center space-x-2">
-                    <Image src="/logo-bintuni.png" alt="Logo Bintuni" width={40} height={40} className="object-contain" priority />
-
+                    <Image
+                        src="/logo-bintuni.png"
+                        alt="Logo Bintuni"
+                        width={40}
+                        height={40}
+                        className="object-contain"
+                        priority
+                    />
                     <span
-                        className={`text-xl font-bold tracking-wide drop-shadow-sm transition-colors duration-300 ${scrolled ? "text-blue-700" : "text-white"
+                        className={`text-xl font-bold tracking-wide drop-shadow-sm transition-colors duration-300 ${scrolled || isPetaQGIS || isStoryMap
+                            ? "text-blue-700"
+                            : "text-white"
                             }`}
                     >
                         Satu Peta Bintuni
                     </span>
-
                 </a>
 
                 {/* Desktop Menu */}
                 <div className="hidden md:flex space-x-8">
-                    {/*
-                    {menuItems.map((item) => (
-                        <a
-                            key={item.href}
-                            href={item.href}
-                            //className="text-gray-800 hover:text-blue-700 font-medium transition-all duration-200"
-
-                            className={`font-medium transition-all duration-200 ${scrolled
-                                ? "text-gray-800 hover:text-blue-700"
-                                : "text-white hover:text-blue-200"
-                                }`}
-
-                        >
-                            {item.label}
-                        </a>
-
-                    ))}
-                    */}
-
                     {menuItems.map((item) => (
                         <Link
                             key={item.href}
                             href={item.href}
-                            className={`font-medium transition-all duration-200 ${scrolled
+                            className={`font-medium transition-all duration-200 ${scrolled || isPetaQGIS || isStoryMap
                                 ? "text-gray-800 hover:text-blue-700"
                                 : "text-white hover:text-blue-200"
                                 }`}
@@ -138,12 +94,12 @@ export default function Navbar() {
                             {item.label}
                         </Link>
                     ))}
-
                 </div>
 
                 {/* Mobile Button */}
                 <button
-                    className="md:hidden p-2 text-gray-800"
+                    className={`md:hidden p-2 ${scrolled || isPetaQGIS || isStoryMap ? "text-gray-800" : "text-white"
+                        }`}
                     onClick={() => setOpen(!open)}
                     aria-label="Toggle menu"
                 >
