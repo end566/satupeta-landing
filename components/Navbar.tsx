@@ -79,7 +79,7 @@ export default function Navbar() {
                             : "text-white"
                             }`}
                     >
-                        Satu Peta Bintuni
+                        Bintuni One Map
                     </span>
                 </a>
 

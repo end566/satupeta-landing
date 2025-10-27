@@ -6,7 +6,7 @@ import ScrollToTop from "@/components/ScrollToTop";
 import Preloader from "@/components/Preloader";
 
 export const metadata = {
-  title: "Satu Peta Teluk Bintuni",
+  title: "Bintuni One Map",
   description: "Platform geospasial terintegrasi Kabupaten Teluk Bintuni",
 };
 

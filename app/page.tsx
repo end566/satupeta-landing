@@ -44,7 +44,7 @@ export default function Home() {
                     transition={{ duration: 1 }}
                 >
                     <h1 className="text-4xl md:text-6xl font-bold mb-4">
-                        Satu Peta Kabupaten Teluk Bintuni
+                        Bintuni One Map - Kabupaten Teluk Bintuni
                     </h1>
                     <p className="text-lg md:text-2xl text-gray-200 max-w-2xl mx-auto">
                         Platform geospasial terintegrasi untuk pembangunan berkelanjutan di Teluk Bintuni
@@ -58,7 +58,7 @@ export default function Home() {
                     <FadeInSection>
                         <h2 className="text-3xl font-bold text-blue-700 mb-6">Tentang</h2>
                         <p className="text-gray-700 leading-relaxed">
-                            Satu Peta Teluk Bintuni adalah inisiatif Pemerintah Daerah untuk menyediakan akses
+                            Bintuni One Map adalah inisiatif Pemerintah Daerah untuk menyediakan akses
                             data spasial yang akurat dan mudah digunakan oleh masyarakat, investor, dan lembaga
                             publik.
                         </p>
@@ -85,9 +85,10 @@ export default function Home() {
                             Hubungi kami untuk informasi lebih lanjut atau kolaborasi:
                         </p>
                         <p className="text-gray-800 font-semibold">
-                            Dinas Komunikasi dan Informatika Kabupaten Teluk Bintuni
+                            Badan Perencanaan Pembangunan Penelitian dan Pengembangan Daerah<br />
+                            Kabupaten Teluk Bintuni
                         </p>
-                        <p className="text-gray-600">Email: diskominfo@bintunikab.go.id</p>
+                        <p className="text-gray-600">Email: bappelitbangda@telukbintunikab.go.id</p>
                     </FadeInSection>
                 </div>
             </section>

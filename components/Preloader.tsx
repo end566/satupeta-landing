@@ -1,62 +1,56 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
-export default function Preloader() {
-    const [loading, setLoading] = useState(true);
+const Preloader = () => {
+    const [show, setShow] = useState(true);
+    const [fadeIn, setFadeIn] = useState(false);
+    const animationDuration = 5000; // total durasi animasi 5 detik
 
     useEffect(() => {
-        const timer = setTimeout(() => setLoading(false), 2000); // durasi 2 detik
-        return () => clearTimeout(timer);
-    }, []);
+        // Efek muncul logo
+        const timer1 = setTimeout(() => {
+            setFadeIn(true);
+            // 🔇 Efek suara dihapus
+        }, 100);
+
+        // Sembunyikan preloader setelah 5 detik
+        const timer2 = setTimeout(() => setShow(false), animationDuration);
+
+        return () => {
+            clearTimeout(timer1);
+            clearTimeout(timer2);
+        };
+    }, [animationDuration]);
+
+    if (!show) return null;
 
     return (
-        <AnimatePresence>
-            {loading && (
-                <motion.div
-                    key="preloader"
-                    initial={{ opacity: 1 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.8 }}
-                    // className="fixed inset-0 bg-white flex flex-col items-center justify-center z-[9999]" --> putih
-                    className="fixed inset-0 bg-white flex flex-col items-center justify-center z-[9999]"
-                // className="fixed inset-0 bg-blue-900 flex flex-col items-center justify-center z-[9999]" --> biru tua
-                // className="fixed inset-0 bg-blue-900 flex flex-col items-center justify-center z-[9999]"
-                >
-                    {/* Logo atau Teks */}
-                    <motion.h1
-                        //className="text-2xl md:text-3xl font-bold text-blue-700 mb-6" --> biru
-                        className="text-2xl md:text-3xl font-bold text-blue-700 mb-6"
-                        //className="text-2xl md:text-3xl font-bold text-white mb-6" --> putih</motion.div>
-                        //</AnimatePresence>className="text-2xl md:text-3xl font-bold text-white mb-6"
+        <div className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-white">
+            {/* Logo dengan animasi dari kecil ke besar dan fade-in */}
+            <div
+                className={`transition-all duration-[4000ms] ease-out transform ${fadeIn ? "opacity-100 scale-100" : "opacity-0 scale-75"
+                    }`}
+            >
+                <Image
+                    src="/bintuni-one-map.jpg"
+                    alt="Logo Bintuni One Map"
+                    width={300}
+                    height={300}
+                    className="max-w-[50vw] h-auto object-contain select-none"
+                    priority
+                />
+            </div>
 
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, delay: 0.2 }}
-                    >
-                        Satu Peta Teluk Bintuni
-                    </motion.h1>
-
-                    {/* Animasi Titik */}
-                    <div className="flex space-x-2">
-                        {[0, 1, 2].map((i) => (
-                            <motion.span
-                                key={i}
-                                className="w-3 h-3 bg-blue-600 rounded-full"
-                                animate={{ y: [0, -8, 0] }}
-                                transition={{
-                                    duration: 0.6,
-                                    repeat: Infinity,
-                                    repeatDelay: 0.1,
-                                    delay: i * 0.15,
-                                }}
-                            />
-                        ))}
-                    </div>
-                </motion.div>
-            )}
-        </AnimatePresence>
+            {/* Animasi titik di bawah logo */}
+            <div className="flex space-x-2 mt-8">
+                <span className="w-3 h-3 bg-gray-500 rounded-full animate-bounce"></span>
+                <span className="w-3 h-3 bg-gray-400 rounded-full animate-bounce [animation-delay:-0.2s]"></span>
+                <span className="w-3 h-3 bg-gray-300 rounded-full animate-bounce [animation-delay:-0.4s]"></span>
+            </div>
+        </div>
     );
-}
+};
+
+export default Preloader;

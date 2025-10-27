@@ -4,7 +4,7 @@ import { useEffect } from "react";
 
 export default function PetaQGISPage() {
     useEffect(() => {
-        document.title = "Peta QGIS | Satu Peta Bintuni";
+        document.title = "Peta QGIS | Bintuni One Map";
     }, []);
 
     return (
