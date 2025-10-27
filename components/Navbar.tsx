@@ -68,8 +68,11 @@ export default function Navbar() {
                         width={40}
                         height={40}
                         className="object-contain"
-                        priority
+                        //priority
+                        //priority={pathname === "/"} // ✅ preload hanya di homepage
+                        loading="lazy" //menunda load sampai gambar benar-benar dibutuhkan di viewport, sehingga warning preload hilang
                     />
+
                     <span
                         className={`text-xl font-bold tracking-wide drop-shadow-sm transition-colors duration-300 ${scrolled || isPetaQGIS || isStoryMap
                             ? "text-blue-700"

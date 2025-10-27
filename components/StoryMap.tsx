@@ -92,9 +92,9 @@ export default function StoryMap() {
     }
 
     return (
+        // <div className="pt-20 relative flex flex-col items-center justify-center min-h-screen bg-gray-50"> 
         <div className="flex flex-col md:flex-row h-screen w-full">
             {/* Panel kiri */}
-
 
             <div className="md:w-1/2 w-full h-screen overflow-y-scroll snap-y snap-mandatory bg-white/90 backdrop-blur-md p-8 space-y-24">
                 {storyLayers.map((s) => (
