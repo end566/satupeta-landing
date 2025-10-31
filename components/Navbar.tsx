@@ -15,7 +15,6 @@ export default function Navbar() {
     const isPetaQGIS = pathname === "/petaqgis";
     const isStoryMap = pathname === "/storymap";
 
-
     useEffect(() => {
         const handleScroll = () => setScrolled(window.scrollY > 20);
         window.addEventListener("scroll", handleScroll);
@@ -34,7 +33,6 @@ export default function Navbar() {
     const handleNavigation = async (href: string) => {
         if (href.startsWith("#")) {
             const targetId = href.substring(1);
-
             if (pathname === "/") {
                 const target = document.getElementById(targetId);
                 if (target) target.scrollIntoView({ behavior: "smooth" });
@@ -52,56 +50,58 @@ export default function Navbar() {
 
     return (
         <nav
-            className={`fixed top-0 w-full z-50 transition-all duration-300 ${isPetaQGIS || isStoryMap
-                ? "bg-white text-black shadow-md"
+            className={`fixed top-0 w-full z-50 transition-all duration-500 ${isPetaQGIS || isStoryMap
+                ? "bg-white text-black"
                 : scrolled
-                    ? "bg-white text-black shadow-md"
+                    ? "bg-white text-black"
                     : "bg-transparent text-white"
                 }`}
         >
             <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
-                {/* Logo */}
+                {/* ===== Logo Container ===== */}
                 <a href="/#beranda" className="flex items-center space-x-2">
-                    <Image
-                        src="/logo-bintuni.png"
-                        alt="Logo Bintuni"
-                        width={40}
-                        height={40}
-                        className="object-contain"
-                        //priority
-                        //priority={pathname === "/"} // ✅ preload hanya di homepage
-                        loading="lazy" //menunda load sampai gambar benar-benar dibutuhkan di viewport, sehingga warning preload hilang
-                    />
-
-                    <span
-                        className={`text-xl font-bold tracking-wide drop-shadow-sm transition-colors duration-300 ${scrolled || isPetaQGIS || isStoryMap
-                            ? "text-blue-700"
-                            : "text-white"
+                    <div
+                        className={`rounded-xl p-2 transition-all duration-500 ${scrolled || isPetaQGIS || isStoryMap
+                            ? "bg-transparent backdrop-blur-none shadow-none"
+                            : "bg-transparent"
                             }`}
                     >
-                        Bintuni One Map
-                    </span>
+                        <Image
+                            src="/bintuni-one-maptxt.svg"
+                            alt="Logo Bintuni One Map"
+                            width={200}
+                            height={60}
+                            className={`object-contain transition-all duration-500 ${scrolled || isPetaQGIS || isStoryMap
+                                ? "drop-shadow-none"
+                                : "drop-shadow-[0_0_8px_rgba(255,255,255,0.7)]"
+                                }`}
+                            loading="lazy"
+                        />
+                    </div>
                 </a>
 
-                {/* Desktop Menu */}
+                {/* ===== Desktop Menu ===== */}
                 <div className="hidden md:flex space-x-8">
                     {menuItems.map((item) => (
                         <Link
                             key={item.href}
                             href={item.href}
-                            className={`font-medium transition-all duration-200 ${scrolled || isPetaQGIS || isStoryMap
+                            className={`font-medium transition-all duration-300 ${scrolled || isPetaQGIS || isStoryMap
                                 ? "text-gray-800 hover:text-blue-700"
                                 : "text-white hover:text-blue-200"
                                 }`}
+                            onClick={() => handleNavigation(item.href)}
                         >
                             {item.label}
                         </Link>
                     ))}
                 </div>
 
-                {/* Mobile Button */}
+                {/* ===== Mobile Menu Button ===== */}
                 <button
-                    className={`md:hidden p-2 ${scrolled || isPetaQGIS || isStoryMap ? "text-gray-800" : "text-white"
+                    className={`md:hidden p-2 ${scrolled || isPetaQGIS || isStoryMap
+                        ? "text-gray-800"
+                        : "text-white"
                         }`}
                     onClick={() => setOpen(!open)}
                     aria-label="Toggle menu"
@@ -110,7 +110,7 @@ export default function Navbar() {
                 </button>
             </div>
 
-            {/* Mobile Menu */}
+            {/* ===== Mobile Menu ===== */}
             <AnimatePresence>
                 {open && (
                     <motion.div
@@ -118,7 +118,7 @@ export default function Navbar() {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -10 }}
                         transition={{ duration: 0.25 }}
-                        className="md:hidden fixed top-[64px] left-0 right-0 bg-white/30 backdrop-blur-xl border-t border-white/20 shadow-lg"
+                        className="md:hidden fixed top-[64px] left-0 right-0 bg-white/95 text-gray-800 border-t border-gray-200"
                     >
                         <div className="flex flex-col space-y-4 py-4 px-6">
                             {menuItems.map((item) => (
@@ -126,7 +126,7 @@ export default function Navbar() {
                                     key={item.href}
                                     href={item.href}
                                     onClick={() => setOpen(false)}
-                                    className="text-gray-800 hover:text-blue-700 font-medium"
+                                    className="font-medium hover:text-blue-700 transition-colors"
                                 >
                                     {item.label}
                                 </a>

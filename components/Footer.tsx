@@ -6,19 +6,26 @@ export default function Footer() {
     return (
         <footer className="bg-blue-900 text-white mt-20">
             <div className="max-w-6xl mx-auto px-6 py-10 grid md:grid-cols-3 gap-6">
-                {/* Kolom 1 - Logo & Deskripsi */}
-                <div className="flex items-center gap-4 p-3 bg-white/10 rounded-xl backdrop-blur-sm shadow-sm">
-                    <Image
-                        src="/bintuni-one-map.jpg"
-                        alt="Bintuni One Map Logo"
-                        width={70}
-                        height={70}
-                        className="rounded-md object-contain"
-                    />
-                    <p className="text-sm text-blue-100 leading-snug">
-                        Portal informasi spasial Kabupaten Teluk Bintuni untuk mendukung
-                        perencanaan pembangunan berbasis data geospasial.
-                    </p>
+                {/* Kolom 1 - Logo */}
+                <div className="flex items-center justify-center gap-6 rounded-2xl shadow-inner backdrop-blur-sm">
+                    <div className="bg-white rounded-xl p-1">
+                        <Image
+                            src="/bintuni-one-map.jpg"
+                            alt="Logo Bintuni One Map"
+                            width={70}
+                            height={70}
+                            className="object-contain rounded-lg"
+                        />
+                    </div>
+                    <div className="bg-white rounded-xl p-1">
+                        <Image
+                            src="/urdi.jpeg"
+                            alt="Logo URDI"
+                            width={70}
+                            height={70}
+                            className="object-contain rounded-lg"
+                        />
+                    </div>
                 </div>
 
                 {/* Kolom 2 - Navigasi */}
@@ -45,7 +52,7 @@ export default function Footer() {
 
             {/* Copyright */}
             <div className="bg-blue-950 text-center py-3 text-sm">
-                © {new Date().getFullYear()} URDI for Pemerintah Kabupaten Teluk Bintuni.
+                © {new Date().getFullYear()} URDI untuk Pemerintah Kabupaten Teluk Bintuni.
             </div>
         </footer>
     );
